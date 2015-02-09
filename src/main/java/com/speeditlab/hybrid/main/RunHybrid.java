@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import com.speeditlab.hybrid.driver.TcDriver;
 import com.speeditlab.hybrid.exception.ViewNotFound;
-import com.speeditlab.hybrid.utils.SpeetItUtils;
+import com.speeditlab.hybrid.utils.SpeedItUtils;
 
 
 /**
@@ -14,7 +14,7 @@ public class RunHybrid
 {
     public static void main(String[] args) throws IOException, ViewNotFound
     {
-        new TcDriver().execute(SpeetItUtils.getAbsolutePath("testcases/Signup.xlsm"), "SIGN_UP");
+        new TcDriver().execute(SpeedItUtils.getAbsolutePath("testcases/Signup.xlsm"), "SIGN_UP");
     }
 
 }

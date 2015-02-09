@@ -8,7 +8,7 @@ import com.speeditlab.hybrid.exception.SpeedItException;
 import com.speeditlab.hybrid.exception.ViewNotFound;
 import com.speeditlab.hybrid.locators.Locator;
 import com.speeditlab.hybrid.locators.View;
-import com.speeditlab.hybrid.utils.SpeetItUtils;
+import com.speeditlab.hybrid.utils.SpeedItUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -32,7 +32,7 @@ public class Repository extends Excel
 
     public Repository(String locatorSheet)
     {
-        super(SpeetItUtils.getAbsolutePath(LOCATOR_FILE), locatorSheet);
+        super(SpeedItUtils.getAbsolutePath(LOCATOR_FILE), locatorSheet);
         _initLocator();
     }
 

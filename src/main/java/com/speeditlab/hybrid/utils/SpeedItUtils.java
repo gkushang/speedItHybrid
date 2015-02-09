@@ -9,7 +9,7 @@ import org.springframework.core.io.ClassPathResource;
 /**
  * Created by kugajjar on 2/8/15.
  */
-public class SpeetItUtils
+public class SpeedItUtils
 {
 
     public static String getAbsolutePath(String fileName)
