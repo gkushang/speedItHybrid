@@ -1,13 +1,10 @@
 package com.speeditlab.hybrid.driver;
 
-import java.io.IOException;
-
-import com.speeditlab.hybrid.excel.Excel;
 import com.speeditlab.hybrid.exception.EndOfTestCase;
-import com.speeditlab.hybrid.locators.Locator;
+import com.speeditlab.hybrid.exception.ViewNotFound;
 import com.speeditlab.hybrid.testcase.Repository;
 import com.speeditlab.hybrid.testcase.TestCase;
-import com.speeditlab.hybrid.utils.Keys;
+import org.apache.commons.lang3.StringUtils;
 
 
 /**
@@ -15,16 +12,34 @@ import com.speeditlab.hybrid.utils.Keys;
  */
 public class TcDriver
 {
-    public void execute(String workBook, String workSheet) throws IOException
+
+    private Repository repository;
+
+    public void execute(String workBook, String workSheet) throws ViewNotFound
     {
         TestCase tc = new TestCase(workBook, workSheet);
 
         try
         {
             int row = tc.getStartTestRow();
-            Locator locator = new Repository("login").getLocator();
-            System.out.println("JSON: " + locator.toString());
+            while (!tc.isEnd(row))
+            {
+                String keyword = tc.getKeyword(row);
+                if (StringUtils.isNotEmpty(keyword))
+                {
+                    repository = new Repository(keyword);
+                }
+                else
+                {
+                    String fieldName = tc.getFieldName(row);
+                    if (StringUtils.isNotEmpty(fieldName))
+                    {
+                        System.out.println("VIEW: \n" + repository.getSelector(fieldName));
+                    }
+                }
 
+                row++;
+            }
         }
         catch (EndOfTestCase endOfTestCase)
         {
@@ -36,19 +51,4 @@ public class TcDriver
         }
     }
 
-    private Integer getKeyword(Excel tc, Integer row)
-    {
-        row++;
-
-        System.out.println(tc.getCellData(row, Keys.TestCase.Columns.KEYWORD));
-        return row;
-    }
-
-    private Integer getFieldNameAndValue(Excel tc, Integer row)
-    {
-        row++;
-        System.out.println(tc.getCellData(row, Keys.TestCase.Columns.FIELD_NAME));
-        System.out.println(tc.getCellData(row, Keys.TestCase.Columns.VALUE));
-        return row;
-    }
 }

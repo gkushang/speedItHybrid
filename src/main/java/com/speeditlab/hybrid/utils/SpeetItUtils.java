@@ -16,7 +16,7 @@ public class SpeetItUtils
     {
         try
         {
-            return new ClassPathResource("locators/Locators.xlsx").getFile().getAbsolutePath();
+            return new ClassPathResource(fileName).getFile().getAbsolutePath();
         }
         catch (IOException e)
         {

@@ -5,8 +5,8 @@ package com.speeditlab.hybrid.exception;
  */
 public class SpeedItException extends RuntimeException
 {
-    public SpeedItException(String s)
+    public SpeedItException(String s, Exception e)
     {
-        super(s);
+        super(s, e);
     }
 }
