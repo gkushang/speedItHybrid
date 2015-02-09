@@ -1,7 +1,8 @@
 package com.speeditlab.hybrid.testcase;
 
-import com.speeditlab.hybrid.enums.Keys;
+import com.speeditlab.hybrid.utils.Keys;
 import com.speeditlab.hybrid.excel.Excel;
+import com.speeditlab.hybrid.exception.EndOfTestCase;
 
 
 /**
@@ -14,7 +15,7 @@ public class TestCase extends Excel
         super(workbook, worksheet);
     }
 
-    public int getStartTestRow()
+    public int getStartTestRow() throws EndOfTestCase
     {
         int row = Keys.TestCase.Rows.START_ROW;
 
@@ -22,11 +23,11 @@ public class TestCase extends Excel
         {
             if (_isEndTestFound(row))
             {
-                return 0;
+                throw new EndOfTestCase("Test Case End");
             }
             else if (_isStartTestFound(row))
             {
-                return row;
+                return ++row;
             }
 
             row++;
