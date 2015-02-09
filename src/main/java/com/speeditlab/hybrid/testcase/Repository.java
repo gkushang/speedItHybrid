@@ -23,12 +23,8 @@ public class Repository extends Excel
 {
     private static final String LOCATOR_FILE = "locators/Locators.xlsx";
 
-    private static final String CELLS = "cells";
-    private static final String ROWS = "rows";
-
     private final ObjectMapper MAPPER = new ObjectMapper();
     private Locator locator;
-
 
     public Repository(String locatorSheet)
     {

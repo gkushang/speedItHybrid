@@ -2,13 +2,15 @@ package com.speeditlab.hybrid.driver;
 
 import com.speeditlab.hybrid.exception.EndOfTestCase;
 import com.speeditlab.hybrid.exception.ViewNotFound;
-import com.speeditlab.hybrid.lib.Browser;
+import com.speeditlab.hybrid.browser.Browser;
 import com.speeditlab.hybrid.testcase.Repository;
 import com.speeditlab.hybrid.testcase.TestCase;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**
@@ -16,6 +18,8 @@ import org.openqa.selenium.remote.DesiredCapabilities;
  */
 public class TcDriver
 {
+
+    private static final Logger LOG = LoggerFactory.getLogger(TcDriver.class);
 
     private Repository repository;
 
@@ -36,6 +40,7 @@ public class TcDriver
                 String keyword = tc.getKeyword(row);
                 if (StringUtils.isNotEmpty(keyword))
                 {
+                    LOG.info("Initializing '{}' repository", keyword);
                     repository = new Repository(keyword);
                 }
                 else
@@ -43,8 +48,7 @@ public class TcDriver
                     String fieldName = tc.getFieldName(row);
                     if (StringUtils.isNotEmpty(fieldName))
                     {
-                        System.out.println("VIEW: \n" + repository.getSelector(fieldName));
-
+                        LOG.info("Executing '{}' field", fieldName);
                         browser.clearAndType(repository.getSelector(fieldName), tc.getFieldValue(row));
                     }
                 }

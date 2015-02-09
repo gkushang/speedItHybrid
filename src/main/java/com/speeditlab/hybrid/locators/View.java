@@ -22,7 +22,9 @@ import org.apache.commons.lang3.StringUtils;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Generated("org.jsonschema2pojo")
 @JsonPropertyOrder({
-                           "cells"
+                           "field_name",
+                           "by",
+                           "selector"
                    })
 public class View
 {
