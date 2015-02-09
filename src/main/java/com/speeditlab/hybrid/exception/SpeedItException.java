@@ -9,4 +9,9 @@ public class SpeedItException extends RuntimeException
     {
         super(s, e);
     }
+
+    public SpeedItException(Exception e)
+    {
+        super(e);
+    }
 }

@@ -5,6 +5,9 @@ package com.speeditlab.hybrid.utils;
  */
 public interface Keys
 {
+    String BROWSER = "browser";
+
+
     public interface TestCase
     {
         String START_TEST = "START TEST";

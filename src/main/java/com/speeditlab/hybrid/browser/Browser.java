@@ -6,6 +6,8 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**
@@ -21,6 +23,8 @@ public class Browser
 
     private final WebDriver driver;
 
+    private static final Logger LOG = LoggerFactory.getLogger(Browser.class);
+
     public Browser(WebDriver driver)
     {
         this.driver = driver;
@@ -34,8 +38,9 @@ public class Browser
         element.sendKeys(textToType);
     }
 
-    public void openNewURL(String url)
+    public void navigate(String url)
     {
+        LOG.info("Navigate to '{}' url", url);
         driver.get(url);
     }
 
@@ -118,6 +123,16 @@ public class Browser
         }
 
         throw new NoSuchElementException("element not found: " + view.toString());
+    }
+
+    public void quit()
+    {
+        driver.quit();
+    }
+
+    public String getVisibleText(View view)
+    {
+        return findElement(view).getAttribute("value");
     }
 }
 

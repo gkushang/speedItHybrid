@@ -1,6 +1,6 @@
 package com.speeditlab.hybrid.testcase;
 
-import com.speeditlab.hybrid.excel.Excel;
+import com.speeditlab.hybrid.utils.Excel;
 import com.speeditlab.hybrid.exception.EndOfTestCase;
 import com.speeditlab.hybrid.utils.Keys;
 

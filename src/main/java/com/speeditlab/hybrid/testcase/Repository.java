@@ -3,7 +3,7 @@ package com.speeditlab.hybrid.testcase;
 import java.util.Iterator;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.speeditlab.hybrid.excel.Excel;
+import com.speeditlab.hybrid.utils.Excel;
 import com.speeditlab.hybrid.exception.SpeedItException;
 import com.speeditlab.hybrid.exception.ViewNotFound;
 import com.speeditlab.hybrid.locators.Locator;
@@ -85,7 +85,7 @@ public class Repository extends Excel
 
     }
 
-    public View getSelector(String fieldName) throws ViewNotFound
+    public View getView(String fieldName) throws ViewNotFound
     {
         for (View view : locator.getViews())
         {

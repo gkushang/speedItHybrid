@@ -1,14 +1,15 @@
 package com.speeditlab.hybrid.driver;
 
-import com.speeditlab.hybrid.exception.EndOfTestCase;
-import com.speeditlab.hybrid.exception.ViewNotFound;
 import com.speeditlab.hybrid.browser.Browser;
+import com.speeditlab.hybrid.browser.WebDriverFactory;
+import com.speeditlab.hybrid.exception.EndOfTestCase;
+import com.speeditlab.hybrid.exception.SpeedItException;
+import com.speeditlab.hybrid.exception.ViewNotFound;
+import com.speeditlab.hybrid.keywords.Keywords;
 import com.speeditlab.hybrid.testcase.Repository;
 import com.speeditlab.hybrid.testcase.TestCase;
+import com.speeditlab.hybrid.utils.Keys;
 import org.apache.commons.lang3.StringUtils;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.remote.DesiredCapabilities;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,10 +28,11 @@ public class TcDriver
     {
         TestCase tc = new TestCase(workBook, workSheet);
 
-        final DesiredCapabilities caps = DesiredCapabilities.firefox();
-        WebDriver driver = new FirefoxDriver(caps);
-        driver.navigate().to("https://accounts.google.com/SignUp");
-        Browser browser = new Browser(driver);
+        Browser browser = _launchBrowser(System.getProperty(Keys.BROWSER));
+
+        Keywords keywords = new Keywords(browser);
+
+        browser.navigate("https://www.paypal.com/signup/account");
 
         try
         {
@@ -49,12 +51,14 @@ public class TcDriver
                     if (StringUtils.isNotEmpty(fieldName))
                     {
                         LOG.info("Executing '{}' field", fieldName);
-                        browser.clearAndType(repository.getSelector(fieldName), tc.getFieldValue(row));
+
+                        keywords.process(repository.getView(fieldName), tc.getFieldValue(row));
                     }
                 }
 
                 row++;
             }
+
         }
         catch (EndOfTestCase endOfTestCase)
         {
@@ -62,8 +66,25 @@ public class TcDriver
         }
         catch (Exception e)
         {
-            e.printStackTrace();
+            throw new SpeedItException(e);
         }
+        finally
+        {
+            LOG.info("Quit Browser");
+
+            browser.quit();
+        }
+
+        LOG.info("Tests ends. SpeedIt AGAIN...!");
+
+    }
+
+    private Browser _launchBrowser(String browser)
+    {
+        LOG.info("Launching '{}' browser", browser);
+
+        final WebDriverFactory factory = WebDriverFactory.getDriverFromString(browser);
+        return new Browser(factory.getLocalDriver());
     }
 
 }
