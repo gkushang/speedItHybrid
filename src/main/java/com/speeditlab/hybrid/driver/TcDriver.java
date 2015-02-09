@@ -1,7 +1,7 @@
 package com.speeditlab.hybrid.driver;
 
 import com.speeditlab.hybrid.browser.Browser;
-import com.speeditlab.hybrid.browser.WebDriverFactory;
+import com.speeditlab.hybrid.browser.BrowserFactory;
 import com.speeditlab.hybrid.exception.EndOfTestCase;
 import com.speeditlab.hybrid.exception.SpeedItException;
 import com.speeditlab.hybrid.exception.ViewNotFound;
@@ -73,6 +73,8 @@ public class TcDriver
             LOG.info("Quit Browser");
 
             browser.quit();
+
+            tc.close();
         }
 
         LOG.info("Tests ends. SpeedIt AGAIN...!");
@@ -83,7 +85,7 @@ public class TcDriver
     {
         LOG.info("Launching '{}' browser", browser);
 
-        final WebDriverFactory factory = WebDriverFactory.getDriverFromString(browser);
+        final BrowserFactory factory = BrowserFactory.getDriverFromString(browser);
         return new Browser(factory.getLocalDriver());
     }
 

@@ -16,7 +16,7 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 /**
  * The Class ScreenShotRemoteDriver.
  */
-public class ScreenShotRemoteDriver extends RemoteWebDriver implements
+public class ScreenShotRemoteBrowser extends RemoteWebDriver implements
         TakesScreenshot
 {
 
@@ -26,7 +26,7 @@ public class ScreenShotRemoteDriver extends RemoteWebDriver implements
 	 * @param url the url
 	 * @param capability the capability
 	 */
-	public ScreenShotRemoteDriver(URL url, DesiredCapabilities capability) {
+	public ScreenShotRemoteBrowser(URL url, DesiredCapabilities capability) {
 		super(url, capability);
 	}
 

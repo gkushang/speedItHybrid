@@ -16,7 +16,7 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.safari.SafariDriver;
 
 
-public enum WebDriverFactory
+public enum BrowserFactory
 {
 
 
@@ -113,19 +113,19 @@ public enum WebDriverFactory
     DesiredCapabilities capability;
 
 
-    private static final Map<String, WebDriverFactory> stringMap = new HashMap<String, WebDriverFactory>();
+    private static final Map<String, BrowserFactory> stringMap = new HashMap<String, BrowserFactory>();
 
     private String name;
 
     static
     {
-        for (final WebDriverFactory fram : values())
+        for (final BrowserFactory fram : values())
         {
             stringMap.put(fram.toString(), fram);
         }
     }
 
-    private WebDriverFactory(String name)
+    private BrowserFactory(String name)
     {
         this.name = name;
     }
@@ -133,7 +133,7 @@ public enum WebDriverFactory
     private static WebDriver getDriverWithCapabilities(URL hub,
                                                        DesiredCapabilities capabilities)
     {
-        final RemoteWebDriver driver = new ScreenShotRemoteDriver(hub,
+        final RemoteWebDriver driver = new ScreenShotRemoteBrowser(hub,
                                                                   capabilities);
         driver.setFileDetector(new LocalFileDetector());
         return driver;
@@ -146,7 +146,7 @@ public enum WebDriverFactory
         return name;
     }
 
-    public static WebDriverFactory getDriverFromString(String name)
+    public static BrowserFactory getDriverFromString(String name)
     {
         return stringMap.get(name);
     }

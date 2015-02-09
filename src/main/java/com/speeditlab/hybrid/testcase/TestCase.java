@@ -1,7 +1,7 @@
 package com.speeditlab.hybrid.testcase;
 
-import com.speeditlab.hybrid.utils.Excel;
 import com.speeditlab.hybrid.exception.EndOfTestCase;
+import com.speeditlab.hybrid.utils.Excel;
 import com.speeditlab.hybrid.utils.Keys;
 
 
@@ -62,5 +62,10 @@ public class TestCase extends Excel
     public String getFieldValue(int row)
     {
         return getCellData(row, Keys.TestCase.Columns.VALUE);
+    }
+
+    public void close()
+    {
+        super.close();
     }
 }

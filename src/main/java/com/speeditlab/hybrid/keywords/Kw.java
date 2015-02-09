@@ -10,4 +10,5 @@ public interface Kw
     String OFF = "OFF";
     String VERIFY_BEGINS = "[";
     String VERIFY_ENDS = "]";
+    String CONTAINS = "*";
 }

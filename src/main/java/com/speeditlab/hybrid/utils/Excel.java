@@ -1,7 +1,9 @@
 package com.speeditlab.hybrid.utils;
 
 import java.io.FileInputStream;
+import java.io.IOException;
 
+import com.speeditlab.hybrid.exception.SpeedItException;
 import com.speeditlab.hybrid.exception.SpeedItIOException;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.xssf.usermodel.XSSFCell;
@@ -18,6 +20,7 @@ public class Excel
 {
     protected XSSFWorkbook workbook;
     protected XSSFSheet worksheet;
+    private FileInputStream fileInputStream;
 
     public Excel(String workbook, String worksheet)
     {
@@ -29,7 +32,9 @@ public class Excel
     {
         try
         {
-            return new XSSFWorkbook(new FileInputStream(workbook));
+            fileInputStream = new FileInputStream(workbook);
+
+            return new XSSFWorkbook(fileInputStream);
 
         }
         catch (Exception e)
@@ -53,5 +58,18 @@ public class Excel
     private XSSFCell getCell(int row, int col)
     {
         return this.worksheet.getRow((short) row).getCell(col);
+    }
+
+    protected void close()
+    {
+        try
+        {
+            fileInputStream.close();
+        }
+        catch (IOException e)
+        {
+            throw new SpeedItException("Error closing test case sheet", e);
+        }
+
     }
 }
