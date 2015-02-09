@@ -14,7 +14,7 @@ public class RunHybrid
 {
     public static void main(String[] args) throws IOException, ViewNotFound
     {
-        new TcDriver().execute(SpeetItUtils.getAbsolutePath("testcases/Login.xlsm"), "LOGIN");
+        new TcDriver().execute(SpeetItUtils.getAbsolutePath("testcases/Signup.xlsm"), "SIGN_UP");
     }
 
 }

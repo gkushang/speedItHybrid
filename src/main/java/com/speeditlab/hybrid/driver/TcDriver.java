@@ -2,9 +2,13 @@ package com.speeditlab.hybrid.driver;
 
 import com.speeditlab.hybrid.exception.EndOfTestCase;
 import com.speeditlab.hybrid.exception.ViewNotFound;
+import com.speeditlab.hybrid.lib.Browser;
 import com.speeditlab.hybrid.testcase.Repository;
 import com.speeditlab.hybrid.testcase.TestCase;
 import org.apache.commons.lang3.StringUtils;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
 
 
 /**
@@ -18,6 +22,11 @@ public class TcDriver
     public void execute(String workBook, String workSheet) throws ViewNotFound
     {
         TestCase tc = new TestCase(workBook, workSheet);
+
+        final DesiredCapabilities caps = DesiredCapabilities.firefox();
+        WebDriver driver = new FirefoxDriver(caps);
+        driver.navigate().to("https://accounts.google.com/SignUp");
+        Browser browser = new Browser(driver);
 
         try
         {
@@ -35,6 +44,8 @@ public class TcDriver
                     if (StringUtils.isNotEmpty(fieldName))
                     {
                         System.out.println("VIEW: \n" + repository.getSelector(fieldName));
+
+                        browser.clearAndType(repository.getSelector(fieldName), tc.getFieldValue(row));
                     }
                 }
 

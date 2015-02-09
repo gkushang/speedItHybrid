@@ -58,4 +58,9 @@ public class TestCase extends Excel
     {
         return getCellData(row, Keys.TestCase.Columns.FIELD_NAME);
     }
+
+    public String getFieldValue(int row)
+    {
+        return getCellData(row, Keys.TestCase.Columns.VALUE);
+    }
 }
