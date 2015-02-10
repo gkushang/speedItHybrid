@@ -1,7 +1,12 @@
 package com.speeditlab.hybrid.keywords;
 
 import com.speeditlab.hybrid.browser.Browser;
+import com.speeditlab.hybrid.exception.ViewNotFound;
 import com.speeditlab.hybrid.locators.View;
+import com.speeditlab.hybrid.testcase.Repository;
+import com.speeditlab.hybrid.utils.Keys;
+import com.speeditlab.hybrid.utils.SpeedItUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,7 +22,6 @@ public class Keywords implements Kw
 {
     private static final Logger LOG = LoggerFactory.getLogger(Keywords.class);
 
-
     private final Browser browser;
 
     public Keywords(Browser browser)
@@ -25,46 +29,74 @@ public class Keywords implements Kw
         this.browser = browser;
     }
 
-    public void process(View view, String value)
+    public String process(Repository repository, String fieldName, String value) throws ViewNotFound
     {
-        if (isClick(value))
+        if (fieldName.equals(NAVIGATE))
         {
-            LOG.info("Click '{}' element", view.toString());
-            browser.click(view);
-        }
-        else if (isOn(value))
-        {
-            LOG.info("Check ON the box '{}' element", view.toString());
-            browser.activateCheckBox(view);
-        }
-        else if (isOff(value))
-        {
-            LOG.info("Check OFF the box '{}' element", view.toString());
-            browser.deactivateCheckBox(view);
-        }
-        else if (isVerify(value))
-        {
-            LOG.info("Verify the text for '{}' element", view.toString());
-
-            value = removeKeyword(value);
-
-            if (isContains(value))
-            {
-                LOG.info("Verify the in-string text for '{}' element", view.toString());
-                assertThat("Expected text did not contain actual value", browser.getVisibleText(view),
-                           containsString(removeKeyword(value)));
-            }
-            else
-            {
-                assertThat("Expected text did not match", browser.getVisibleText(view),
-                           is(removeKeyword(value)));
-            }
+            browser.navigate(value);
+            SpeedItUtils.sleep(5000);
         }
         else
         {
-            LOG.info("Type on '{}' element", view.toString());
-            browser.clearAndType(view, value);
+            View view = repository.getView(fieldName);
+
+            if (isClick(value))
+            {
+                LOG.info("Click '{}' element", view.toString());
+                browser.click(view);
+            }
+            else if (isVerify(value))
+            {
+                LOG.info("Verify the text for '{}' element", view.toString());
+
+                value = removeKeyword(value);
+
+                if (isContains(value))
+                {
+                    LOG.info("Verify the in-string text for '{}' element", view.toString());
+                    assertThat("Expected text did not contain actual value", browser.getVisibleText(view),
+                               containsString(removeKeyword(value)));
+                }
+                else
+                {
+                    assertThat("Expected text did not match", browser.getVisibleText(view),
+                               is(removeKeyword(value)));
+                }
+
+                return Keys.Result.PASS;
+            }
+            else
+            {
+                if (browser.getTag(view).equals(Browser.SELECT))
+                {
+                    LOG.info("Select a value '{}' element", view.toString());
+                    browser.selectByText(view, value);
+                }
+                else if (browser.getType(view).equals(Browser.CHECK_BOX))
+                {
+                    LOG.info("Checkbox '{}' element", view.toString());
+
+                    if (value.equalsIgnoreCase(Kw.ON))
+                    {
+                        browser.activateCheckBox(view);
+
+                    }
+                    else if (value.equalsIgnoreCase(Kw.OFF))
+                    {
+                        browser.deactivateCheckBox(view);
+                    }
+
+                }
+
+                else
+                {
+                    LOG.info("Type on '{}' element", view.toString());
+                    browser.clearAndType(view, value);
+                }
+            }
         }
+
+        return StringUtils.EMPTY;
     }
 
     private boolean isOff(String value)

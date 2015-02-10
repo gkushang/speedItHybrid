@@ -3,9 +3,9 @@ package com.speeditlab.hybrid.driver;
 import com.speeditlab.hybrid.browser.Browser;
 import com.speeditlab.hybrid.browser.BrowserFactory;
 import com.speeditlab.hybrid.exception.EndOfTestCase;
-import com.speeditlab.hybrid.exception.SpeedItException;
 import com.speeditlab.hybrid.exception.ViewNotFound;
 import com.speeditlab.hybrid.keywords.Keywords;
+import com.speeditlab.hybrid.results.Report;
 import com.speeditlab.hybrid.testcase.Repository;
 import com.speeditlab.hybrid.testcase.TestCase;
 import com.speeditlab.hybrid.utils.Keys;
@@ -32,7 +32,9 @@ public class TcDriver
 
         Keywords keywords = new Keywords(browser);
 
-        browser.navigate("https://www.paypal.com/signup/account");
+        Report report = new Report();
+
+        browser.navigate("https://cm.qa.where.com/");
 
         try
         {
@@ -44,15 +46,39 @@ public class TcDriver
                 {
                     LOG.info("Initializing '{}' repository", keyword);
                     repository = new Repository(keyword);
+                    report.process();
+                    report.setKeyword(keyword);
                 }
                 else
                 {
                     String fieldName = tc.getFieldName(row);
+
                     if (StringUtils.isNotEmpty(fieldName))
                     {
                         LOG.info("Executing '{}' field", fieldName);
 
-                        keywords.process(repository.getView(fieldName), tc.getFieldValue(row));
+                        String fieldValue = tc.getFieldValue(row);
+
+                        try
+                        {
+                            report.setSteps
+                                    (
+                                            fieldName,
+                                            fieldValue,
+                                            keywords.process(repository, fieldName, fieldValue)
+                                    );
+                        }
+                        catch (AssertionError e)
+                        {
+                            report.setSteps
+                                    (
+                                            fieldName,
+                                            fieldValue,
+                                            Keys.Result.FAIL
+                                    );
+
+                            throw new EndOfTestCase(Keys.Result.FAIL);
+                        }
                     }
                 }
 
@@ -62,17 +88,21 @@ public class TcDriver
         }
         catch (EndOfTestCase endOfTestCase)
         {
-            endOfTestCase.printStackTrace();
+            LOG.error(endOfTestCase.getMessage());
         }
         catch (Exception e)
         {
-            throw new SpeedItException(e);
+            report.error(e.getMessage());
         }
         finally
         {
             LOG.info("Quit Browser");
 
+            report.process();
+
             browser.quit();
+
+            report.prettyPrint();
 
             tc.close();
         }

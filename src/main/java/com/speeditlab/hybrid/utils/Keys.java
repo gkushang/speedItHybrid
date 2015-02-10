@@ -27,4 +27,11 @@ public interface Keys
             Integer VALUE = 2;
         }
     }
+
+
+    public interface Result
+    {
+        String FAIL = "FAIL";
+        String PASS = "PASS";
+    }
 }

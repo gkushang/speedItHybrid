@@ -2,6 +2,7 @@ package com.speeditlab.hybrid.utils;
 
 import java.io.IOException;
 
+import com.speeditlab.hybrid.exception.SpeedItException;
 import com.speeditlab.hybrid.exception.SpeedItIOException;
 import org.springframework.core.io.ClassPathResource;
 
@@ -21,6 +22,18 @@ public class SpeedItUtils
         catch (IOException e)
         {
             throw new SpeedItIOException("File not found: " + fileName, e);
+        }
+    }
+
+    public static void sleep(int mill_seconds)
+    {
+        try
+        {
+            Thread.sleep(mill_seconds);
+        }
+        catch (InterruptedException e)
+        {
+            throw new SpeedItException("Error in sleep", e);
         }
     }
 }

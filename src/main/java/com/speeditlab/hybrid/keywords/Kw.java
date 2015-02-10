@@ -11,4 +11,5 @@ public interface Kw
     String VERIFY_BEGINS = "[";
     String VERIFY_ENDS = "]";
     String CONTAINS = "*";
+    String NAVIGATE = "Navigate To>>>";
 }
