@@ -34,4 +34,11 @@ public interface Keys
         String FAIL = "FAIL";
         String PASS = "PASS";
     }
+
+
+    public interface Properties
+    {
+        String BROWSER = "browser";
+        String HOST_URL = "host_url";
+    }
 }
