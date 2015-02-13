@@ -20,6 +20,12 @@ public class DataDriver
     private Map<String, Data> dataMap = new HashMap<String, Data>();
     private String _keyword;
     private Data data;
+    private Boolean isData = Boolean.FALSE;
+
+    public Boolean isData()
+    {
+        return isData;
+    }
 
     public String start(TestCase tc, int row)
     {
@@ -31,6 +37,7 @@ public class DataDriver
         {
             if (!dataMap.containsKey(group))
             {
+                isData = true;
                 this.data = new Data(tc.getDataBook(row), tc.getDataSheet(row));
 
                 data.setRow(row);
@@ -68,11 +75,12 @@ public class DataDriver
 
             if (dataMap.containsKey(group))
             {
-                Data data = dataMap.get(group);
+                data = dataMap.get(group);
                 data.incrementStartRow();
 
                 if (data.completed())
                 {
+                    isData = false;
                     return row;
                 }
                 else

@@ -1,5 +1,8 @@
 package com.speeditlab.hybrid.utils;
 
+import org.apache.commons.lang3.StringUtils;
+
+
 /**
  * Created by kugajjar on 2/6/15.
  */
@@ -43,6 +46,7 @@ public interface Keys
     {
         String FAIL = "FAIL";
         String PASS = "PASS";
+        String NONE = StringUtils.EMPTY;
     }
 
 

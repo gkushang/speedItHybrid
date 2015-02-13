@@ -80,11 +80,9 @@ public class TcDriver
 
                         try
                         {
-                            report.setSteps
+                            report = keywords.process
                                     (
-                                            fieldName,
-                                            fieldValue,
-                                            keywords.process(repository, fieldName, fieldValue, dataDriver)
+                                            repository, fieldName, fieldValue, dataDriver, report
                                     );
                         }
                         catch (AssertionError e)
@@ -92,11 +90,12 @@ public class TcDriver
                             report.setSteps
                                     (
                                             fieldName,
-                                            fieldValue,
+                                            keywords.getValue(),
                                             Keys.Result.FAIL
                                     );
 
-                            throw new EndOfTestCase(Keys.Result.FAIL);
+                            if (!dataDriver.isData())
+                                throw new EndOfTestCase(Keys.Result.FAIL);
                         }
                     }
                 }

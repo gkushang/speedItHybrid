@@ -4,10 +4,10 @@ import com.speeditlab.hybrid.browser.Browser;
 import com.speeditlab.hybrid.datadrive.DataDriver;
 import com.speeditlab.hybrid.exception.ViewNotFound;
 import com.speeditlab.hybrid.locators.View;
+import com.speeditlab.hybrid.results.Report;
 import com.speeditlab.hybrid.testcase.Repository;
 import com.speeditlab.hybrid.utils.Keys;
 import com.speeditlab.hybrid.utils.SpeedItUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,13 +24,22 @@ public class Keywords implements Kw
     private static final Logger LOG = LoggerFactory.getLogger(Keywords.class);
 
     private final Browser browser;
+    private String _value;
 
     public Keywords(Browser browser)
     {
         this.browser = browser;
     }
 
-    public String process(Repository repository, String fieldName, String value, DataDriver dataDriver) throws ViewNotFound
+    public Report process
+            (
+                    Repository repository,
+                    String fieldName,
+                    String value,
+                    DataDriver dataDriver,
+                    Report report
+
+            ) throws ViewNotFound
     {
         if (isDataDriven(value))
         {
@@ -70,7 +79,9 @@ public class Keywords implements Kw
                                is(removeKeyword(value)));
                 }
 
-                return Keys.Result.PASS;
+                report.setSteps(fieldName, value, Keys.Result.PASS);
+
+                return report;
             }
             else
             {
@@ -103,7 +114,9 @@ public class Keywords implements Kw
             }
         }
 
-        return StringUtils.EMPTY;
+        report.setSteps(fieldName, value, Keys.Result.NONE);
+
+        return report;
     }
 
     private boolean isDataDriven(String value)
@@ -155,6 +168,13 @@ public class Keywords implements Kw
             return value.substring(1, value.length() - 1);
         }
 
+        _value = value;
+
         return value;
+    }
+
+    public String getValue()
+    {
+        return _value;
     }
 }
