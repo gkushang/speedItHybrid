@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.speeditlab.hybrid.browser.Browser;
 import com.speeditlab.hybrid.browser.BrowserFactory;
+import com.speeditlab.hybrid.datadrive.DataDriver;
 import com.speeditlab.hybrid.exception.EndOfTestCase;
 import com.speeditlab.hybrid.exception.ViewNotFound;
 import com.speeditlab.hybrid.keywords.Keywords;
@@ -40,6 +41,8 @@ public class TcDriver
 
         Report report = new Report();
 
+        DataDriver dataDriver = new DataDriver();
+
         browser.navigate(getProp(Keys.Properties.HOST_URL));
 
         try
@@ -51,10 +54,19 @@ public class TcDriver
                 String keyword = tc.getKeyword(row);
                 if (StringUtils.isNotEmpty(keyword))
                 {
-                    LOG.info("Initializing '{}' repository", keyword);
-                    repository = new Repository(keyword);
-                    report.process();
-                    report.setKeyword(keyword);
+                    row = dataDriver.end(tc, row);
+
+                    dataDriver.start(tc, row);
+
+                    keyword = dataDriver.getKeyword();
+
+                    if (StringUtils.isNotEmpty(keyword))
+                    {
+                        LOG.info("Initializing '{}' repository", keyword);
+                        repository = new Repository(keyword);
+                        report.process();
+                        report.setKeyword(keyword);
+                    }
                 }
                 else
                 {
@@ -100,6 +112,7 @@ public class TcDriver
         catch (Exception e)
         {
             report.error(e.getMessage());
+            e.printStackTrace();
         }
         finally
         {

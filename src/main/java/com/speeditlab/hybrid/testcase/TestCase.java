@@ -68,4 +68,29 @@ public class TestCase extends Excel
     {
         super.close();
     }
+
+    public String getDataBook(int row)
+    {
+        return getCellData(row, Keys.TestCase.Columns.Data.DATA_BOOK);
+    }
+
+    public String getDataSheet(int row)
+    {
+        return getCellData(row, Keys.TestCase.Columns.Data.DATA_SHEET);
+    }
+
+    public int getHeaderRow(int row)
+    {
+        return Integer.parseInt(getCellData(row, Keys.TestCase.Columns.Data.HEADER_ROW));
+    }
+
+    public int getStartRow(int row)
+    {
+        return Integer.parseInt(getCellData(row, Keys.TestCase.Columns.Data.START_ROW));
+    }
+
+    public int getEndRow(int row)
+    {
+        return Integer.parseInt(getCellData(row, Keys.TestCase.Columns.Data.END_ROW));
+    }
 }

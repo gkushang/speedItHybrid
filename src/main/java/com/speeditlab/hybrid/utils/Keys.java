@@ -25,6 +25,16 @@ public interface Keys
             Integer KEYWORD = 0;
             Integer FIELD_NAME = 1;
             Integer VALUE = 2;
+
+
+            public interface Data
+            {
+                int DATA_BOOK = 3;
+                int DATA_SHEET = 4;
+                int HEADER_ROW = 5;
+                int START_ROW = 6;
+                int END_ROW = 7;
+            }
         }
     }
 
