@@ -84,7 +84,7 @@ public class TcDriver
                                     (
                                             fieldName,
                                             fieldValue,
-                                            keywords.process(repository, fieldName, fieldValue)
+                                            keywords.process(repository, fieldName, fieldValue, dataDriver)
                                     );
                         }
                         catch (AssertionError e)

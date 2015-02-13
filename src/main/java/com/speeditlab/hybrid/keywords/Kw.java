@@ -12,4 +12,5 @@ public interface Kw
     String VERIFY_ENDS = "]";
     String CONTAINS = "*";
     String NAVIGATE = "Navigate To>>>";
+    String PIPE_LINE = "|";
 }

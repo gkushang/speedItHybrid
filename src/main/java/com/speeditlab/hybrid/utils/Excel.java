@@ -49,7 +49,14 @@ public class Excel
 
         if (cell != null)
         {
-            return cell.getStringCellValue();
+            try
+            {
+                return cell.getStringCellValue();
+            }
+            catch (IllegalStateException e)
+            {
+                return Double.toString(cell.getNumericCellValue());
+            }
         }
 
         return StringUtils.EMPTY;

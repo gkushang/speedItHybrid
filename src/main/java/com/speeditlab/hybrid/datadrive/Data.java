@@ -68,4 +68,9 @@ public class Data extends Excel
     {
         return _startRow > _endRow;
     }
+
+    public String getValue(String column)
+    {
+        return getCellData(_startRow, 1);
+    }
 }

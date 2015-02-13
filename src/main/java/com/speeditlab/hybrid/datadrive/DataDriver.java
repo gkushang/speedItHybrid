@@ -19,6 +19,7 @@ public class DataDriver
     private static final String END_DATA_MATCHER = "<END_DATA::(.+)>(.*)";
     private Map<String, Data> dataMap = new HashMap<String, Data>();
     private String _keyword;
+    private Data data;
 
     public String start(TestCase tc, int row)
     {
@@ -30,7 +31,7 @@ public class DataDriver
         {
             if (!dataMap.containsKey(group))
             {
-                Data data = new Data(tc.getDataBook(row), tc.getDataSheet(row));
+                this.data = new Data(tc.getDataBook(row), tc.getDataSheet(row));
 
                 data.setRow(row);
                 data.setHeaderRow(tc.getHeaderRow(row));
@@ -112,4 +113,8 @@ public class DataDriver
                : StringUtils.EMPTY;
     }
 
+    public String getValue(String column)
+    {
+        return data.getValue(column);
+    }
 }

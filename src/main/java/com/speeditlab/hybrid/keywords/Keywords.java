@@ -1,6 +1,7 @@
 package com.speeditlab.hybrid.keywords;
 
 import com.speeditlab.hybrid.browser.Browser;
+import com.speeditlab.hybrid.datadrive.DataDriver;
 import com.speeditlab.hybrid.exception.ViewNotFound;
 import com.speeditlab.hybrid.locators.View;
 import com.speeditlab.hybrid.testcase.Repository;
@@ -29,8 +30,14 @@ public class Keywords implements Kw
         this.browser = browser;
     }
 
-    public String process(Repository repository, String fieldName, String value) throws ViewNotFound
+    public String process(Repository repository, String fieldName, String value, DataDriver dataDriver) throws ViewNotFound
     {
+        if (isDataDriven(value))
+        {
+            value = dataDriver.getValue(removeKeyword(value));
+            SpeedItUtils.sleep(1000);
+
+        }
         if (fieldName.equals(NAVIGATE))
         {
             browser.navigate(value);
@@ -99,6 +106,11 @@ public class Keywords implements Kw
         return StringUtils.EMPTY;
     }
 
+    private boolean isDataDriven(String value)
+    {
+        return isKeywordPresent(value, PIPE_LINE);
+    }
+
     private boolean isOff(String value)
     {
         return value.equals(OFF);
@@ -122,17 +134,23 @@ public class Keywords implements Kw
 
     private boolean isContains(String value)
     {
-        return value.substring(0, 1).equals(CONTAINS) &&
-                value.substring(value.length() - 1, value.length()).equals(CONTAINS);
+        return isKeywordPresent(value, CONTAINS);
+    }
+
+    private boolean isKeywordPresent(String value, String Kw)
+    {
+        return value.substring(0, 1).equals(Kw) &&
+                value.substring(value.length() - 1, value.length()).equals(Kw);
     }
 
     private String removeKeyword(String value)
     {
-        if (isVerify(value))
+        if (isVerify(value) || isDataDriven(value))
         {
             return value.substring(1, value.length() - 1);
         }
-        else if (isContains(value))
+
+        if (isContains(value))
         {
             return value.substring(1, value.length() - 1);
         }
