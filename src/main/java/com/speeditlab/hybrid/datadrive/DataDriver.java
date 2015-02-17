@@ -20,7 +20,6 @@ public class DataDriver
     private Map<String, Data> dataMap = new HashMap<String, Data>();
     private String _keyword;
     private Data data;
-    private Boolean isData = Boolean.FALSE;
 
     public Boolean isData()
     {
