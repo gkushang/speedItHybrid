@@ -24,7 +24,7 @@ public class DataDriver
 
     public Boolean isData()
     {
-        return isData;
+        return dataMap.size() == 0;
     }
 
     public String start(TestCase tc, int row)
@@ -81,6 +81,7 @@ public class DataDriver
                 if (data.completed())
                 {
                     isData = false;
+                    dataMap.remove(group);
                     return row;
                 }
                 else
