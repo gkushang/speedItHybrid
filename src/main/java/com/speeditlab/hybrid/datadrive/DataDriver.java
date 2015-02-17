@@ -36,7 +36,6 @@ public class DataDriver
         {
             if (!dataMap.containsKey(group))
             {
-                isData = true;
                 this.data = new Data(tc.getDataBook(row), tc.getDataSheet(row));
 
                 data.setRow(row);
@@ -79,7 +78,6 @@ public class DataDriver
 
                 if (data.completed())
                 {
-                    isData = false;
                     dataMap.remove(group);
                     return row;
                 }
