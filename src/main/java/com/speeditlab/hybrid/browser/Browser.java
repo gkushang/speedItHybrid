@@ -1,6 +1,9 @@
 package com.speeditlab.hybrid.browser;
 
+import java.util.List;
+
 import com.speeditlab.hybrid.locators.View;
+import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
@@ -164,6 +167,62 @@ public class Browser
     public String getType(View view)
     {
         return findElement(view).getAttribute("type");
+    }
+
+    public void scanAllTags(String tagName)
+    {
+        List<WebElement> elementList = driver.findElements(By.tagName(tagName));
+
+        int i = 0;
+        for (WebElement element : elementList)
+        {
+            String precedingName = "";
+
+            try
+            {
+                WebElement precedingElement = element.findElement(By.xpath("preceding-sibling::*"));
+                precedingName = precedingElement.getTagName();
+
+                if (precedingName.equalsIgnoreCase("strong") || precedingName.equalsIgnoreCase("label"))
+                {
+                    System.out.println("Element Name is : " + precedingElement.getAttribute("textContent"));
+                }
+
+                System.out.println("CSS: "
+                                           + element.findElement(By.xpath("parent::*")).getTagName()
+                                           + ">"
+                                           + tagName + getCss(element)
+                                           + element.findElement(By.xpath("following-sibling::*")).getTagName());
+            }
+            catch (Exception e)
+            {
+
+            }
+
+            i++;
+        }
+
+        System.out.println("Total input tags are " + elementList.size());
+    }
+
+    private String getCss(WebElement element)
+    {
+        String css = element.getAttribute("id");
+
+        if (StringUtils.isNotEmpty(css))
+        {
+            return "#" + css;
+        }
+
+        css = element.getAttribute("class");
+
+        if (StringUtils.isNotEmpty(css))
+        {
+            return "." + css;
+        }
+
+        return StringUtils.EMPTY;
+
     }
 }
 
