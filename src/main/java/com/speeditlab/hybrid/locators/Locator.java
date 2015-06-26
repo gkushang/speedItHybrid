@@ -1,53 +1,39 @@
 package com.speeditlab.hybrid.locators;
 
-/**
- * Created by kugajjar on 2/8/15.
- */
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.annotation.Generated;
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@Generated("org.jsonschema2pojo")
-@JsonPropertyOrder({
-                           "rows"
-                   })
+/**
+ * Created by kugajjar on 2/8/15.
+ */
 public class Locator
 {
+    public static final String VIEWS = "views";
 
-    @JsonProperty("rows")
-    private List<Row> rows = new ArrayList<Row>();
+    @JsonProperty(VIEWS)
+    private List<View> views = new ArrayList<View>();
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
-    /**
-     * @return The rows
-     */
-    @JsonProperty("rows")
-    public List<Row> getRows()
+    @JsonProperty(VIEWS)
+    public List<View> getViews()
     {
-        return rows;
+        return views;
     }
 
-    /**
-     * @param rows The rows
-     */
-    @JsonProperty("rows")
-    public void setRows(List<Row> rows)
+    @JsonProperty(VIEWS)
+    public void setViews(List<View> views)
     {
-        this.rows = rows;
+        this.views = views;
     }
 
     @JsonAnyGetter

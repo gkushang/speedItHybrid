@@ -1,8 +1,8 @@
 package com.speeditlab.hybrid.testcase;
 
-import com.speeditlab.hybrid.utils.Keys;
-import com.speeditlab.hybrid.excel.Excel;
 import com.speeditlab.hybrid.exception.EndOfTestCase;
+import com.speeditlab.hybrid.utils.Excel;
+import com.speeditlab.hybrid.utils.Keys;
 
 
 /**
@@ -23,7 +23,7 @@ public class TestCase extends Excel
         {
             if (_isEndTestFound(row))
             {
-                throw new EndOfTestCase("Test Case End");
+                throw new EndOfTestCase("End Of Test Case");
             }
             else if (_isStartTestFound(row))
             {
@@ -36,16 +36,61 @@ public class TestCase extends Excel
 
     private boolean _isEndTestFound(int row)
     {
-        return _getKeyword(row).equals(Keys.TestCase.END_TEST);
+        return getKeyword(row).equals(Keys.TestCase.END_TEST);
     }
 
     private boolean _isStartTestFound(int row)
     {
-        return _getKeyword(row).equals(Keys.TestCase.START_TEST);
+        return getKeyword(row).equals(Keys.TestCase.START_TEST);
     }
 
-    private String _getKeyword(Integer row)
+    public String getKeyword(Integer row)
     {
         return getCellData(row, Keys.TestCase.Columns.KEYWORD);
+    }
+
+    public boolean isEnd(int row)
+    {
+        return _isEndTestFound(row);
+    }
+
+    public String getFieldName(int row)
+    {
+        return getCellData(row, Keys.TestCase.Columns.FIELD_NAME);
+    }
+
+    public String getFieldValue(int row)
+    {
+        return getCellData(row, Keys.TestCase.Columns.VALUE);
+    }
+
+    public void close()
+    {
+        super.close();
+    }
+
+    public String getDataBook(int row)
+    {
+        return getCellData(row, Keys.TestCase.Columns.Data.DATA_BOOK);
+    }
+
+    public String getDataSheet(int row)
+    {
+        return getCellData(row, Keys.TestCase.Columns.Data.DATA_SHEET);
+    }
+
+    public int getHeaderRow(int row)
+    {
+        return Integer.parseInt(getCellData(row, Keys.TestCase.Columns.Data.HEADER_ROW));
+    }
+
+    public int getStartRow(int row)
+    {
+        return Integer.parseInt(getCellData(row, Keys.TestCase.Columns.Data.START_ROW));
+    }
+
+    public int getEndRow(int row)
+    {
+        return Integer.parseInt(getCellData(row, Keys.TestCase.Columns.Data.END_ROW));
     }
 }
