@@ -1,15 +1,16 @@
 # speetItHybrid
 
 
+<br/>
+
  ### Copyright (c) 2015 Kushang Gajjar <g.kushang@gmail.com>
 
  ### Proprietor : Kushang G Gajjar
- ### All Rights Reserved.
+ ### All Rights Reserved.             |
  ####  - Permission is hereby not granted without signing agreement with the Proprietor.
  ####  - This Software cannot be distributed without signing agreement with the Proprietor.
 
 
-<br/>
 
 ### Important
 
