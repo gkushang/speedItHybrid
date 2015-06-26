@@ -1,3 +1,13 @@
+/*-----------------------------------------------------------------------------------------*\
+ |  Copyright (c) 2015 Kushang Gajjar <g.kushang@gmail.com>                                 |
+ |                                                                                          |
+ |  Proprietor : Kushang G Gajjar                                                           |
+ |                                                                                          |
+ |  All Rights Reserved.             |                                                      |
+ |  - Permission is hereby not granted without signing agreement with the Proprietor.       |
+ |  - This Software cannot be distributed without signing agreement with the Proprietor.    |
+ \*---------------------------------------------------------------------------------------- */
+
 package com.speeditlab.hybrid.datadrive;
 
 import java.util.HashMap;
@@ -18,7 +28,7 @@ public class DataDriver
     private static final String START_DATA_MATCHER = "<START_DATA::(.+)>(.*)";
     private static final String END_DATA_MATCHER = "<END_DATA::(.+)>(.*)";
     private Map<String, Data> dataMap = new HashMap<String, Data>();
-    private String _keyword;
+    //    private String _keyword;
     private Data data;
 
     public Boolean isData()
@@ -46,20 +56,17 @@ public class DataDriver
                 dataMap.put(group, data);
             }
 
-            _keyword = getKeyword(getStartMatcher(keyword));
-
-            return _keyword;
-
+            return getKeyword(getStartMatcher(keyword));
         }
 
-        _keyword = StringUtils.EMPTY;
+        group = getGroup(getEndMatcher(keyword));
 
-        return _keyword;
-    }
+        if (StringUtils.isNotBlank(group))
+        {
+            return StringUtils.EMPTY;
+        }
 
-    public String getKeyword()
-    {
-        return _keyword;
+        return keyword;
     }
 
     public int end(TestCase tc, int row)

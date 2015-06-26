@@ -1,3 +1,13 @@
+/*-----------------------------------------------------------------------------------------*\
+ |  Copyright (c) 2015 Kushang Gajjar <g.kushang@gmail.com>                                 |
+ |                                                                                          |
+ |  Proprietor : Kushang G Gajjar                                                           |
+ |                                                                                          |
+ |  All Rights Reserved.             |                                                      |
+ |  - Permission is hereby not granted without signing agreement with the Proprietor.       |
+ |  - This Software cannot be distributed without signing agreement with the Proprietor.    |
+ \*---------------------------------------------------------------------------------------- */
+
 package com.speeditlab.hybrid.browser;
 
 import java.net.URL;
@@ -20,28 +30,30 @@ public class ScreenShotRemoteBrowser extends RemoteWebDriver implements
         TakesScreenshot
 {
 
-	/**
-	 * Instantiates a new screen shot remote driver.
-	 * 
-	 * @param url the url
-	 * @param capability the capability
-	 */
-	public ScreenShotRemoteBrowser(URL url, DesiredCapabilities capability) {
-		super(url, capability);
-	}
+    /**
+     * Instantiates a new screen shot remote driver.
+     *
+     * @param url        the url
+     * @param capability the capability
+     */
+    public ScreenShotRemoteBrowser(URL url, DesiredCapabilities capability)
+    {
+        super(url, capability);
+    }
 
-	/* (non-Javadoc)
-	 * @see org.openqa.selenium.TakesScreenshot#getScreenshotAs(org.openqa.selenium.OutputType)
-	 */
-	public <X> X getScreenshotAs(OutputType<X> arg0) throws WebDriverException
-  {
-		if ((Boolean) getCapabilities().getCapability(
-				CapabilityType.TAKES_SCREENSHOT)) {
-			final String base64Str = execute(DriverCommand.SCREENSHOT)
-					.getValue().toString();
-			return arg0.convertFromBase64Png(base64Str);
-		}
-		return null;
-	}
+    /* (non-Javadoc)
+     * @see org.openqa.selenium.TakesScreenshot#getScreenshotAs(org.openqa.selenium.OutputType)
+     */
+    public <X> X getScreenshotAs(OutputType<X> arg0) throws WebDriverException
+    {
+        if ((Boolean) getCapabilities().getCapability(
+                CapabilityType.TAKES_SCREENSHOT))
+        {
+            final String base64Str = execute(DriverCommand.SCREENSHOT)
+                    .getValue().toString();
+            return arg0.convertFromBase64Png(base64Str);
+        }
+        return null;
+    }
 
 }

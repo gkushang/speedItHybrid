@@ -1,13 +1,23 @@
+/*-----------------------------------------------------------------------------------------*\
+ |  Copyright (c) 2015 Kushang Gajjar <g.kushang@gmail.com>                                 |
+ |                                                                                          |
+ |  Proprietor : Kushang G Gajjar                                                           |
+ |                                                                                          |
+ |  All Rights Reserved.             |                                                      |
+ |  - Permission is hereby not granted without signing agreement with the Proprietor.       |
+ |  - This Software cannot be distributed without signing agreement with the Proprietor.    |
+ \*---------------------------------------------------------------------------------------- */
+
 package com.speeditlab.hybrid.testcase;
 
 import java.util.Iterator;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.speeditlab.hybrid.utils.Excel;
 import com.speeditlab.hybrid.exception.SpeedItException;
 import com.speeditlab.hybrid.exception.ViewNotFound;
 import com.speeditlab.hybrid.locators.Locator;
 import com.speeditlab.hybrid.locators.View;
+import com.speeditlab.hybrid.utils.Excel;
 import com.speeditlab.hybrid.utils.SpeedItUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.Cell;

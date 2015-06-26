@@ -1,3 +1,13 @@
+/*-----------------------------------------------------------------------------------------*\
+ |  Copyright (c) 2015 Kushang Gajjar <g.kushang@gmail.com>                                 |
+ |                                                                                          |
+ |  Proprietor : Kushang G Gajjar                                                           |
+ |                                                                                          |
+ |  All Rights Reserved.             |                                                      |
+ |  - Permission is hereby not granted without signing agreement with the Proprietor.       |
+ |  - This Software cannot be distributed without signing agreement with the Proprietor.    |
+ \*---------------------------------------------------------------------------------------- */
+
 package com.speeditlab.hybrid.browser;
 
 import java.net.MalformedURLException;
@@ -134,7 +144,7 @@ public enum BrowserFactory
                                                        DesiredCapabilities capabilities)
     {
         final RemoteWebDriver driver = new ScreenShotRemoteBrowser(hub,
-                                                                  capabilities);
+                                                                   capabilities);
         driver.setFileDetector(new LocalFileDetector());
         return driver;
     }

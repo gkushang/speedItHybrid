@@ -1,3 +1,13 @@
+/*-----------------------------------------------------------------------------------------*\
+ |  Copyright (c) 2015 Kushang Gajjar <g.kushang@gmail.com>                                 |
+ |                                                                                          |
+ |  Proprietor : Kushang G Gajjar                                                           |
+ |                                                                                          |
+ |  All Rights Reserved.             |                                                      |
+ |  - Permission is hereby not granted without signing agreement with the Proprietor.       |
+ |  - This Software cannot be distributed without signing agreement with the Proprietor.    |
+ \*---------------------------------------------------------------------------------------- */
+
 package com.speeditlab.hybrid.driver;
 
 import java.io.FileInputStream;
@@ -24,6 +34,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Created by kugajjar on 2/6/15.
  */
+
 public class TcDriver
 {
 
@@ -56,9 +67,9 @@ public class TcDriver
                 {
                     row = dataDriver.end(tc, row);
 
-                    dataDriver.start(tc, row);
+                    keyword = dataDriver.start(tc, row);
 
-                    keyword = dataDriver.getKeyword();
+//                    keyword = dataDriver.getKeyword();
 
                     if (StringUtils.isNotEmpty(keyword))
                     {
